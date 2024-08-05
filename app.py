@@ -13,6 +13,12 @@ def recommend():
     data = request.json
     product_id = data['product_id']
     
+    # Imprimir algunos valores de 'antecedents' para depuración
+    print("Ejemplo de antecedents:", rules['antecedents'].head())
+    
+    # Verificar el tipo de datos en 'antecedents'
+    print("Tipo de datos en antecedents:", type(rules['antecedents'].iloc[0]))
+
     # Filtrar reglas relevantes
     relevant_rules = rules[rules['antecedents'].apply(lambda x: product_id in x)]
     
@@ -29,4 +35,4 @@ def recommend():
     return jsonify(recommendations)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
